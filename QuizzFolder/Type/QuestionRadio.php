@@ -5,8 +5,8 @@ namespace QuizzFolder\Type;
 use QuizzFolder\Question;
 
 class QuestionRadio extends Question {
-    public function __construct(string $name, string $type, string $text, $answer, int $score) {
-        parent::__construct($name, $type, $text, $answer, $score);
+    public function __construct(string $name, string $type, string $text, array $answer, array $choices , int $score) {
+        parent::__construct($name, $type, $text, $answer, $choices, $score);
     }
 
     function question_radio($q) {
