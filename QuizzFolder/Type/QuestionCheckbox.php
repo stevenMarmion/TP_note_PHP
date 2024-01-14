@@ -9,31 +9,32 @@ class QuestionCheckbox extends Question {
         parent::__construct($name, $text, $answer, $choices, $score);
     }
 
-    function question_checkbox() {
-        $html = $this->text . "<br>";
+    public function question_checkbox($index) {
+        $html = "<br>";
         $i = 0;
-        foreach ($this->choices as $c) {
+        foreach (parent::getChoices() as $c) {
             $i += 1;
-            $html .= "<input type='checkbox' name='$this->name' value='$c[value]' id='$this->name-$i'>";
-            $html .= "<label for='$this->name-$i'>$c[text]</label>";
+            $html .= "<input type='checkbox' name='q$index" . "[]' value='$i' id='q{$index}_$i'>";
+            $html .= "<label for='q{$index}_$i'>" . $c['Texte_choix'] . "</label>";
         }
-        echo $html;
+        return $html;
     }
     
-    function answer_checkbox($q, $v) {
+    function calcul_points($q, $v) {
         global $question_correct, $score_total, $score_correct;
-        $score_total += $q["score"];
+        $score_total += $q->getScore();
         if (is_null($v)) return;
-        $diff1 = array_diff($q["answer"], $v);
-        $diff2 = array_diff($v, $q["answer"]);
+        $diff1 = array_diff($q->getAnswer(), $v);
+        $diff2 = array_diff($v, $q->getAnswer());
         if (count($diff1) == 0 && count($diff2) == 0) {
             $question_correct += 1;
-            $score_correct += $q["score"];
+            $score_correct += $q->getScore();
         }
+        return [$score_correct, $score_total];
     }
 
-    public function rendu() {
-        return $this->question_checkbox();
+    public function rendu($index) {
+        return $this->question_checkbox($index);
     }
 }
 

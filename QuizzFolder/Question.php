@@ -3,19 +3,19 @@
 namespace QuizzFolder;
 
 abstract class Question {
-    public $name;
-    public $type;
-    public $text;
-    private $answer;
-    private $choices; // liste de choix
-    public $score;
+    public string $name;
+    public string $type;
+    public string $text;
+    private array $answer;
+    private array $choices; // liste de choix
+    public int $score;
     
     public function __construct(string $name, string $text, array $answer, array $choices , int $score) {
-        $this->$name = $name;
-        $this->$text = $text;
-        $this->$answer = $answer;
+        $this->name = $name;
+        $this->text = $text;
+        $this->answer = $answer;
         $this->choices = $choices;
-        $this->$score= $score;
+        $this->score= $score;
     }
 
     public function getAnswer() { return $this->answer; }
@@ -34,7 +34,9 @@ abstract class Question {
 
     public function setChoices(array $choices) { $this->choices = $choices; }
 
-    public abstract function rendu();
+    public abstract function calcul_points($q, $v);
+
+    public abstract function rendu($index);
 }
 
 ?>
