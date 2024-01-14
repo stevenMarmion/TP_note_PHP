@@ -7,14 +7,11 @@ abstract class Question {
     public $type;
     public $text;
     private $answer;
-
     private $choices; // liste de choix
-    
     public $score;
     
-    public function __construct(string $name, string $type, string $text, array $answer, array $choices , int $score) {
+    public function __construct(string $name, string $text, array $answer, array $choices , int $score) {
         $this->$name = $name;
-        $this->$type = $type;
         $this->$text = $text;
         $this->$answer = $answer;
         $this->choices = $choices;
@@ -32,6 +29,10 @@ abstract class Question {
     public function getType() { return $this->type; }
 
     public function getText(): string { return $this->text; }
+
+    public function setAnswer(array $answers) { $this->answer = $answers; }
+
+    public function setChoices(array $choices) { $this->choices = $choices; }
 
     public abstract function rendu();
 }

@@ -5,11 +5,13 @@ namespace QuizzFolder\Type;
 use QuizzFolder\Question;
 
 class QuestionText extends Question {
-    public function __construct(string $name, string $type, string $text, array $answer, array $choices , int $score) {
-        parent::__construct($name, $type, $text, $answer, $choices, $score);
+    public function __construct(string $name, string $text, array $answer, array $choices , int $score) {
+        parent::__construct($name, $text, $answer, $choices, $score);
     }
-    function question_text(Question $q) {
-        echo ($q->getText() . "<br><input type='text' name='" . $q->getName() . "'><br>");
+    public function question_text() {
+        echo "<label>";
+        echo ($this->getText() . "<br><input type='text' name='" . $this->getName() . "'><br>");
+        echo "</label>";
     }
     
     function answer_text($q, $v) {
@@ -22,8 +24,8 @@ class QuestionText extends Question {
         }
     }
 
-    public function rendu(Question $question) {
-        return $this->question_text($question);
+    public function rendu() {
+        return $this->question_text();
     }
 }
 

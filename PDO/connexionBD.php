@@ -21,8 +21,10 @@ try {
 }
 
 function init_DB() {
-    $db = new PDO('sqlite:quizz.sqlite3');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);     
+    $cheminFichierSQLite = __DIR__ . '/../quizz.sqlite3';
+    $db = new PDO('sqlite:' . $cheminFichierSQLite);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo PHP_EOL . 'Connexion réussie' . PHP_EOL;   
     return $db;
 }
 
