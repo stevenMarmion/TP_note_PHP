@@ -5,25 +5,28 @@ namespace QuizzFolder\Type;
 use QuizzFolder\Question;
 
 class QuestionText extends Question {
-    public function __construct(string $name, string $type, string $text, array $answer, array $choices , int $score) {
-        parent::__construct($name, $type, $text, $answer, $choices, $score);
+    public function __construct(string $name, string $text, array $answer, array $choices, $score) {
+        parent::__construct($name, $text, $answer, $choices, $score);
     }
-    function question_text(Question $q) {
-        echo ($q->getText() . "<br><input type='text' name='" . $q->getName() . "'><br>");
+    public function question_text($index) {
+        echo ("<br><input type='text' name='q$index' id='q{$index}'><br>");
     }
     
-    function answer_text($q, $v) {
-        global $question_correct, $score_total, $score_correct;
-        $score_total += $q["score"];
-        if (is_null($v)) return;
-        if ($q["answer"] == $v) {
+    function calcul_points($q, $v) {
+        $score_total += $q->getScore(); // 1
+
+        if (is_null($v)) return 0;
+        
+        if ($q->getAnswer()[0] == $v) { // if 42 == 42
             $question_correct += 1;
-            $score_correct += $q["score"];
+            $score_correct += $q->getScore(); // 1
         }
+
+        return [$score_correct, $score_total];
     }
 
-    public function rendu(Question $question) {
-        return $this->question_text($question);
+    public function rendu($index) {
+        return $this->question_text($index);
     }
 }
 

@@ -5,35 +5,42 @@ namespace QuizzFolder\Type;
 use QuizzFolder\Question;
 
 class QuestionCheckbox extends Question {
-    public function __construct(string $name, string $type, string $text,array $answer, array $choices , int $score) {
-        parent::__construct($name, $type, $text, $answer, $choices, $score);
+    public function __construct(string $name, string $text, array $answer, array $choices , $score) {
+        parent::__construct($name, $text, $answer, $choices, $score);
     }
 
-    function question_checkbox($q) {
-        $html = $q["text"] . "<br>";
+    public function question_checkbox($index) {
+        $html = "<br>";
         $i = 0;
-        foreach ($q["choices"] as $c) {
+        foreach (parent::getChoices() as $c) {
             $i += 1;
-            $html .= "<input type='checkbox' name='$q[name][]' value='$c[value]' id='$q[name]-$i'>";
-            $html .= "<label for='$q[name]-$i'>$c[text]</label>";
+            $html .= "<input type='checkbox' name='q$index" . "[]' value='" . $c['Texte_choix'] . "' id='q{$index}_$i'>";
+            $html .= "<label for='q{$index}_$i'>" . $c['Texte_choix'] . "</label>";
         }
-        echo $html;
+        return $html;
     }
     
-    function answer_checkbox($q, $v) {
-        global $question_correct, $score_total, $score_correct;
-        $score_total += $q["score"];
-        if (is_null($v)) return;
-        $diff1 = array_diff($q["answer"], $v);
-        $diff2 = array_diff($v, $q["answer"]);
-        if (count($diff1) == 0 && count($diff2) == 0) {
-            $question_correct += 1;
-            $score_correct += $q["score"];
+    public function calcul_points($q, $v) {
+        $score_total += $q->getScore();
+
+        if (is_null($v)) return 0;
+
+        $correct_answers = $q->getAnswer();
+        $given_answers = is_array($v) ? $v : array($v);
+
+        foreach ($given_answers as $index => $answer) {
+            foreach ($correct_answers as $key => $value) {
+                if ($correct_answers[$key]['Texte_reponse'] == strtolower($answer)) {
+                    $score_correct += $q->getScore() / sizeof($correct_answers);
+                }
+            }
         }
+
+        return [$score_correct, $score_total];
     }
 
-    public function rendu(Question $question) {
-        return $this->question_checkbox($question);
+    public function rendu($index) {
+        return $this->question_checkbox($index);
     }
 }
 
