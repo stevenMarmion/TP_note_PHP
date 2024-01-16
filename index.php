@@ -109,6 +109,7 @@ $liste_questions_a_afficher = construit_responses($liste_questions, $requete, $d
 </form>
 
 <form method="post" action="creation_quizz.php">
+    <input type="hidden" name="redirection" value="false">
     <h3>Créer votre propre quizz dès maintenant</h3>
     <input class="form_creation_quizz" type="submit" value="Créer un quizz">
 </form>
