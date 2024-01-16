@@ -35,13 +35,13 @@ h3 {
 
 label {
     display: block;
-    margin-bottom: 10px;
 }
 
 input[type="text"],
 input[type="radio"],
 input[type="checkbox"] {
     margin-right: 5px;
+    margin-bottom: 10px;
 }
 
 input[type="submit"] {

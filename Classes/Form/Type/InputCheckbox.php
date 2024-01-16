@@ -14,7 +14,7 @@ class InputCheckbox extends Input {
     public function render() {
         $label = "<label for='" . $this->getLabel() . "'>" . $this->getValue() . " : </label>";
         $input = "<input type='" . $this->getType() . "' name='" . $this->getName() . "[]' id='". $this->getId() . "' value='" . $this->getValue() . "' </input>"; 
-        return $input . $label;
+        return $label . $input;
     }
 }
 
