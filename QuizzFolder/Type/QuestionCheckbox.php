@@ -14,7 +14,7 @@ class QuestionCheckbox extends Question {
         $i = 0;
         foreach (parent::getChoices() as $c) {
             $i += 1;
-            $html .= "<input type='checkbox' name='q$index" . "[]' value='$i' id='q{$index}_$i'>";
+            $html .= "<input type='checkbox' name='q$index" . "[]' value='" . $c['Texte_choix'] . "' id='q{$index}_$i'>";
             $html .= "<label for='q{$index}_$i'>" . $c['Texte_choix'] . "</label>";
         }
         return $html;

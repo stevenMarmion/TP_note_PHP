@@ -52,3 +52,7 @@ input[type="submit"] {
     border-radius: 5px;
     cursor: pointer;
 }
+
+.form_creation_quizz {
+    margin-top: 2em;
+}
