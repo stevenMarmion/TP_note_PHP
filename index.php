@@ -17,7 +17,6 @@ require_once __DIR__ . '/QuizzFolder/Type/QuestionText.php';
 require_once __DIR__ . '/QuizzFolder/Type/QuestionRadio.php';
 require_once __DIR__ . '/QuizzFolder/Type/QuestionCheckbox.php';
 require_once __DIR__ . '/BD/RequeteBDD.php';
-require_once __DIR__ . '/verifie_reponse.php';
 
 use QuizzFolder\Type\QuestionText;
 use QuizzFolder\Type\QuestionRadio;

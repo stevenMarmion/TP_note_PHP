@@ -2,7 +2,11 @@
 
 namespace QuizzFolder\Type;
 
+require_once __DIR__ . '/../../Classes/Form/Type/InputRadio.php';
+require_once __DIR__ . '/../../Classes/Form/GeneriqueFormElement.php';
+
 use QuizzFolder\Question;
+use Classes\Form\Type\InputRadio;
 
 class QuestionRadio extends Question {
     public function __construct(string $name, string $text, array $answer, array $choices , $score) {
@@ -14,13 +18,17 @@ class QuestionRadio extends Question {
         $i = 0;
         foreach (parent::getChoices() as $c) {
             $i += 1;
-            $html .= "<input type='radio' name='q$index' value='" . $c['Texte_choix'] . "' id='q{$index}_$i'>";
-            $html .= "<label for='q{$index}_$i'>" . $c['Texte_choix'] . "</label>";
+            $question_radio = new InputRadio("q{$index}_$i", "q$index", $c['Texte_choix'], "q{$index}_$i", true);
+            $render = $question_radio->render();
+            $html .= $render;
         }
         return $html;
     }
     
     public function calcul_points($q, $v) {
+        $score_total = 0;
+        $score_correct = 0;
+
         $score_total += $q->getScore();
 
         if (is_null($v)) return;
@@ -30,7 +38,6 @@ class QuestionRadio extends Question {
 
         if ($correct_answers[0]['Texte_reponse'] == strtolower($given_answers[0])) { 
             // nous pouvons accéder à [0]['Texte_reponse'] car de toute façon c'est une question radio donc une seule réponse possible
-            $question_correct += 1;
             $score_correct += $q->getScore();
         }
 
