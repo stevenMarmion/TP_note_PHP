@@ -21,7 +21,7 @@ $requete = new RequeteBDD("Quizz");
     <link rel="stylesheet" href="style.css">
 </head>
     <body>
-        <form method="post" action="soumet_quizz.php">
+        <form method="post" action="soumettre_quizz.php">
             <h3>Nom du quizz</h3>
             <input type="text" style="width: 50%;" name="nom_quizz" placeholder="Insérer un nom de quizz">
 

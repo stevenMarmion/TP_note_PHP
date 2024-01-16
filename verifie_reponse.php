@@ -29,36 +29,7 @@ $requete->set_table("Reponse");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultat du Quizz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .quiz-result {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        .score {
-            font-size: 24px;
-            font-weight: bold;
-            color: #28a745; /* couleur verte */
-        }
-    </style>
+    <link rel="stylesheet" href="style_rep.css">
 </head>
 <body>
 
