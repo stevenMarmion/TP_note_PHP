@@ -5,7 +5,7 @@ namespace QuizzFolder\Type;
 use QuizzFolder\Question;
 
 class QuestionText extends Question {
-    public function __construct(string $name, string $text, array $answer, array $choices, int $score) {
+    public function __construct(string $name, string $text, array $answer, array $choices, $score) {
         parent::__construct($name, $text, $answer, $choices, $score);
     }
     public function question_text($index) {
@@ -13,13 +13,15 @@ class QuestionText extends Question {
     }
     
     function calcul_points($q, $v) {
-        global $question_correct, $score_total, $score_correct;
-        $score_total += $q->getScore();
-        if (is_null($v)) return;
-        if ($q->getAnswer() == $v) {
+        $score_total += $q->getScore(); // 1
+
+        if (is_null($v)) return 0;
+        
+        if ($q->getAnswer()[0] == $v) { // if 42 == 42
             $question_correct += 1;
-            $score_correct += $q->getScore();
+            $score_correct += $q->getScore(); // 1
         }
+
         return [$score_correct, $score_total];
     }
 

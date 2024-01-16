@@ -5,7 +5,7 @@ namespace QuizzFolder\Type;
 use QuizzFolder\Question;
 
 class QuestionCheckbox extends Question {
-    public function __construct(string $name, string $text, array $answer, array $choices , int $score) {
+    public function __construct(string $name, string $text, array $answer, array $choices , $score) {
         parent::__construct($name, $text, $answer, $choices, $score);
     }
 
@@ -20,16 +20,22 @@ class QuestionCheckbox extends Question {
         return $html;
     }
     
-    function calcul_points($q, $v) {
-        global $question_correct, $score_total, $score_correct;
+    public function calcul_points($q, $v) {
         $score_total += $q->getScore();
-        if (is_null($v)) return;
-        $diff1 = array_diff($q->getAnswer(), $v);
-        $diff2 = array_diff($v, $q->getAnswer());
-        if (count($diff1) == 0 && count($diff2) == 0) {
-            $question_correct += 1;
-            $score_correct += $q->getScore();
+
+        if (is_null($v)) return 0;
+
+        $correct_answers = $q->getAnswer();
+        $given_answers = is_array($v) ? $v : array($v);
+
+        foreach ($given_answers as $index => $answer) {
+            foreach ($correct_answers as $key => $value) {
+                if ($correct_answers[$key]['Texte_reponse'] == strtolower($answer)) {
+                    $score_correct += $q->getScore() / sizeof($correct_answers);
+                }
+            }
         }
+
         return [$score_correct, $score_total];
     }
 
