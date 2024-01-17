@@ -42,8 +42,10 @@ $requete->set_table("Reponse");
 $res_reponse = $requete->recup_datas($db::obtenir_connexion());
 $liste_reponses = $res_reponse->fetchAll(PDO::FETCH_ASSOC);
 
-function construit_responses($liste_questions, $requete, $db) {
+function construit_responses($liste_questions, $requete, $db, $id_quizz) {
     $liste_questions_a_afficher = [];
+    $res_question = $requete->recup_questions_by_id_quizz($db::obtenir_connexion(), $id_quizz);
+    $liste_questions = $res_question->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($liste_questions as $question) {
 
@@ -85,28 +87,26 @@ function construit_responses($liste_questions, $requete, $db) {
     return $liste_questions_a_afficher;
 }
 
-$liste_questions_a_afficher = construit_responses($liste_questions, $requete, $db);
+foreach ($liste_quizz as $index_quizz => $quizz) {
+    $liste_questions_a_afficher = construit_responses($liste_questions, $requete, $db, $index_quizz+1);
+    ?>
+        <form method="post" action="verifie_reponse.php">
+            <h3><?= $quizz['name_quizz'] ?></h3>
+            <?php foreach ($liste_questions_a_afficher as $index => $question): ?>
+                <div class="question-container">
+                    <h4><?= $question->getText() ?></h4>
+                    <?= $question->rendu($index) ?>
+                </div>
+            <?php endforeach; ?>
+            <br>
+
+            <br>
+            <input type="submit" value="Soumettre vos réponses">
+        </form>
+    <?php
+}
 
 ?>
-
-<form method="post" action="verifie_reponse.php">
-
-    <?php foreach ($liste_quizz as $quizz): ?>
-        <h3><?= $quizz['name_quizz'] ?></h3>
-    <?php endforeach; ?>
-
-    <?php foreach ($liste_questions_a_afficher as $index => $question): ?>
-        <div class="question-container">
-            <h4><?= $question->getText() ?></h4>
-            <?= $question->rendu($index) ?>
-        </div>
-    <?php endforeach; ?>
-    <br>
-
-    <br>
-    <input type="submit" value="Soumettre vos réponses">
-
-</form>
 
 <form method="post" action="creation_quizz.php">
     <input type="hidden" name="redirection" value="false">
