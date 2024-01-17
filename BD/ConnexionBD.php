@@ -252,6 +252,41 @@ class ConnexionBD {
                 "answer" => ["bleu", "blanc", "rouge"],
                 "score" => 3
             ),
+            array(
+                "id" => 4,
+                "name" => "Question prénoms",
+                "type" => "text",
+                "text" => "Quelle est le prénom de Steven ? ",
+                "answer" => "Steven",
+                "score" => 4
+            ),
+            array(
+                "id" => 5,
+                "name" => "Question prénoms",
+                "type" => "text",
+                "text" => "Quelle est le prénom de Samuel ? ",
+                "answer" => "Samuel",
+                "score" => 4
+            ),
+            array(
+                "id" => 6,
+                "name" => "age",
+                "type" => "radio",
+                "text" => "Quelle âge à steven ? ",
+                "choices" => [
+                    array(
+                        "text" => "dix ans",
+                        "value" => "dix ans"),
+                    array(
+                        "text" => "quinze ans",
+                        "value" => "quinze ans"),
+                    array(
+                        "text" => "vingt ans",
+                        "value" => "vingt ans"),
+                ],
+                "answer" => "vingt ans",
+                "score" => 2
+            ),
         ];
         return $questions;
     }
