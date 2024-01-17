@@ -34,14 +34,6 @@ $requete->set_table("Question");
 $res_question = $requete->recup_datas($db::obtenir_connexion());
 $liste_questions = $res_question->fetchAll(PDO::FETCH_ASSOC);
 
-$requete->set_table("Choix");
-$res_choix = $requete->recup_datas($db::obtenir_connexion());
-$liste_choix = $res_choix->fetchAll(PDO::FETCH_ASSOC);
-
-$requete->set_table("Reponse");
-$res_reponse = $requete->recup_datas($db::obtenir_connexion());
-$liste_reponses = $res_reponse->fetchAll(PDO::FETCH_ASSOC);
-
 function construit_responses($liste_questions, $requete, $db, $id_quizz) {
     $liste_questions_a_afficher = [];
     $res_question = $requete->recup_questions_by_id_quizz($db::obtenir_connexion(), $id_quizz);

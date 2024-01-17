@@ -19,8 +19,6 @@ $db = new ConnexionBD();
 $requete = new RequeteBDD("Question");
 $liste_questions = $requete->recup_datas($db::obtenir_connexion())->fetchAll(PDO::FETCH_ASSOC);
 
-$requete->set_table("Reponse");
-
 ?>
 
 <!DOCTYPE html>

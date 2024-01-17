@@ -1,12 +1,4 @@
 <?php
-require_once __DIR__ . '/BD/ConnexionBD.php';
-require_once __DIR__ . '/BD/RequeteBDD.php';
-
-use BD\RequeteBDD;
-use BD\ConnexionBD;
-
-$db = new ConnexionBD();
-$requete = new RequeteBDD("Quizz");
 
 $redirection = isset($_POST['redirection']) ? $_POST['redirection'] : 'false';
 
