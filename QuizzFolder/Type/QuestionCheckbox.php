@@ -38,7 +38,7 @@ class QuestionCheckbox extends Question {
 
         foreach ($given_answers as $index => $answer) {
             foreach ($correct_answers as $key => $value) {
-                if ($correct_answers[$key]['Texte_reponse'] == strtolower($answer)) {
+                if ($correct_answers[$key]['Texte_reponse'] == strtolower($answer)) { // strtolower permet de mettre ne minuscule
                     $score_correct += $q->getScore() / sizeof($correct_answers);
                 }
             }
