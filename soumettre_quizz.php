@@ -13,7 +13,6 @@ $requete = new RequeteBDD("Quizz");
 
 $id_quizz = $requete->inserer_quizz($db::obtenir_connexion(), $nom_quizz);
 $id_quizz = $id_quizz->fetchAll(PDO::FETCH_ASSOC); // 2
-echo $id_quizz[0]['MAX(id_quizz)'];
 
 for ($i = 0; $i < $nb_question; $i++) {
     $nom_question = isset($_POST["nom_question_$i"]) ? $_POST["nom_question_$i"] : '';
@@ -34,6 +33,8 @@ for ($i = 0; $i < $nb_question; $i++) {
 </head>
 <body>
     <h1>Merci d'avoir soumis votre quizz!</h1>
-    <button> </button>
+    <form name="x" action="index.php" method="post">
+    <input type="submit" value="Revenir à la page d'accueil">
+    </form>
 </body>
 </html>
