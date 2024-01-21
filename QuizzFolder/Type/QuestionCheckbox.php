@@ -31,12 +31,12 @@ class QuestionCheckbox extends Question {
      * @param int $index L'index de la question.
      * @return string Le code HTML de la question.
      */
-    public function question_checkbox($index) {
+    public function question_checkbox($index, $id_quizz) {
         $html = "<br>";
         $i = 0;
         foreach (parent::getChoices() as $c) {
             $i += 1;
-            $question_checkbox = new InputCheckbox("q{$index}_$i", "q$index", $c['Texte_choix'], "q{$index}_$i", true);
+            $question_checkbox = new InputCheckbox("q{$index}_{$i}_$id_quizz", "q{$index}_{$id_quizz}", $c['Texte_choix'], "q{$index}_{$i}_$id_quizz", true);
             $render = $question_checkbox->render();
             $html .= $render;
         }
@@ -78,8 +78,8 @@ class QuestionCheckbox extends Question {
      * @param int $index L'index de la question.
      * @return string Le rendu de la question.
      */
-    public function rendu($index) {
-        return $this->question_checkbox($index);
+    public function rendu($index, $id_quizz) {
+        return $this->question_checkbox($index, $id_quizz);
     }
 }
 

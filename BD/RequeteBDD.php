@@ -114,7 +114,10 @@ class RequeteBDD {
      * @return object Le résultat de la requête SQL contenant les réponses.
      */
     function recup_reponses_by_id_question($db, $id_question) {
-        return $db->query("SELECT Texte_reponse FROM Reponse where ID_question = " . $id_question . "");
+        $query = $db->prepare("SELECT Texte_reponse FROM Reponse WHERE ID_question = :id_question");
+        $query->bindParam(':id_question', $id_question);
+        $query->execute();
+        return $query;  
     }
 
     /**
@@ -125,7 +128,10 @@ class RequeteBDD {
      * @return object Le résultat de la requête SQL contenant les choix.
      */
     function recup_choices_by_id_question($db, $id_question) {
-        return $db->query("SELECT Texte_choix, Value_choix FROM Choix where ID_question = " . $id_question . "");
+        $query = $db->prepare("SELECT Texte_choix, Value_choix FROM Choix WHERE ID_question = :id_question");
+        $query->bindParam(':id_question', $id_question);
+        $query->execute();
+        return $query;
     }
 
     /**
@@ -163,10 +169,13 @@ class RequeteBDD {
      *
      * @param object $db L'objet de connexion à la base de données.
      * @param int $id_quizz L'ID du quizz.
-     * @return object Le résultat de la requête SQL pour récupérer les questions du quizz.
+     * @return PDOstatement Le résultat de la requête SQL pour récupérer les questions du quizz.
      */
     function recup_questions_by_id_quizz($db, $id_quizz) {
-        return $db->query("SELECT * FROM Question where ID_quizz = '" . $id_quizz . "'");
+        $query = $db->prepare("SELECT * FROM Question WHERE ID_quizz = :id_quizz");
+        $query->bindParam(':id_quizz', $id_quizz);
+        $query->execute();
+        return $query;
     }
 
     /**

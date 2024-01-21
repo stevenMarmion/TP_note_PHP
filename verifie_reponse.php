@@ -20,6 +20,12 @@ use QuizzFolder\Type\QuestionCheckbox;
 use BD\RequeteBDD;
 use BD\ConnexionBD;
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['id_quizz'])) {
+        $id_quizz = $_POST['id_quizz'];
+    }
+}
+
 $db = new ConnexionBD();
 
 $requete = new RequeteBDD("Question");
@@ -45,7 +51,7 @@ $liste_questions = $requete->recup_datas($db::obtenir_connexion())->fetchAll(PDO
             $score_total = 0;
             foreach ($liste_questions as $index => $question_data) {
                 $bonne_rep = $requete->recup_reponses_by_id_question($db::obtenir_connexion(), $question_data['ID_question'])->fetchAll(PDO::FETCH_ASSOC);
-                $reponses_donnees = isset($_POST["q$index"]) ? $_POST["q$index"] : '';
+                $reponses_donnees = isset($_POST["q{$index}_{$id_quizz}"]) ? $_POST["q{$index}_{$id_quizz}"] : '';
         
                 if ($question_data['Type_question'] == 'text') {
                     $question_text = new QuestionText(
