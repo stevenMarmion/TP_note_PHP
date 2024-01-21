@@ -56,7 +56,7 @@ class QuestionText extends Question {
 
         $score_total += $q->getScore(); // 1
 
-        if (is_null($v)) return 0;
+        if (is_null($v)) return [$score_correct, $score_total];;
         
         if ($q->getAnswer()[0] == $v) { // if 42 == 42
             $score_correct += $q->getScore(); // 1

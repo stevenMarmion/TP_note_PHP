@@ -1,9 +1,11 @@
+<?php
+
 /**
  * Ce fichier est responsable de la vérification des réponses soumises par l'utilisateur dans le quizz.
  * Il utilise les classes QuestionText, QuestionRadio et QuestionCheckbox pour calculer le score de l'utilisateur.
  * Le score total est affiché à la fin du quizz.
  */
-<?php
+
 require_once __DIR__ . '/BD/ConnexionBD.php';
 require_once __DIR__ . '/QuizzFolder/Question.php';
 require_once __DIR__ . '/QuizzFolder/Type/QuestionText.php';

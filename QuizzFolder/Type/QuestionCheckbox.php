@@ -56,7 +56,7 @@ class QuestionCheckbox extends Question {
 
         $score_total += $q->getScore();
 
-        if (is_null($v)) return 0;
+        if (is_null($v)) return [$score_correct, $score_total];
 
         $correct_answers = $q->getAnswer();
         $given_answers = is_array($v) ? $v : array($v);

@@ -1,3 +1,5 @@
+<?php
+
 /**
  * Ce fichier PHP est responsable de la soumission d'un quizz.
  * Il récupère les informations du quizz à partir des paramètres GET,
@@ -6,7 +8,6 @@
  * Enfin, il propose un bouton pour revenir à la page d'accueil.
  */
 
-<?php
 $nb_question = isset($_GET['nb_question']) ? (int)$_GET['nb_question'] : 0;
 $nom_quizz = isset($_GET['nom_quizz']) ? $_GET['nom_quizz'] : '';
 

@@ -58,7 +58,7 @@ class QuestionRadio extends Question {
 
         $score_total += $q->getScore();
 
-        if (is_null($v)) return;
+        if (is_null($v)) return [$score_correct, $score_total];
 
         $correct_answers = $q->getAnswer();
         $given_answers = is_array($v) ? $v : array($v);

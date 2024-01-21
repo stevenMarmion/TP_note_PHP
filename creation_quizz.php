@@ -1,11 +1,11 @@
+<?php
+
 /**
  * Ce fichier contient le code pour la création d'un quizz.
  * Il permet à l'utilisateur de saisir le nom du quizz et le nombre de questions,
  * puis de soumettre le formulaire pour créer les questions du quizz.
  * Une fois les questions créées, l'utilisateur peut les soumettre pour publier le quizz.
  */
-
-<?php
 
 $redirection = isset($_POST['redirection']) ? $_POST['redirection'] : 'false';
 

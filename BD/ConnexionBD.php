@@ -1,9 +1,10 @@
+<?php
+
 /**
  * Classe ConnexionBD
  * 
  * Cette classe représente la connexion à la base de données et contient des méthodes pour initialiser la base de données, créer les tables, insérer des données et effectuer des requêtes.
  */
-<?php
 
 namespace BD;
 
@@ -18,7 +19,23 @@ use PDOException;
  * insère les données de quiz, questions, réponses et choix, si la base de données est vide.
  */
 class ConnexionBD {
+    private static $db = null;
+    public function __construct() {
+        date_default_timezone_set('Europe/Paris');
+        try {
+            if (self::$db === null) {
+                $questions = $this->create_questions();
 
+                self::$db = $this->init_DB();
+                $this->create_tables();
+                $this->make_insert_quizz();
+                $this->make_insert_questions($questions);
+                $this->make_insert_reponse($questions);
+                $this->make_insert_choix($questions);
+            }
+
+        } catch (PDOException $e) {}
+    }
 
     /**
      * Obtient la connexion à la base de données.
@@ -59,7 +76,6 @@ class ConnexionBD {
             id_quizz INTEGER PRIMARY KEY AUTOINCREMENT,
             name_quizz TEXT
         )");
-    }
 
         /**
          * Crée la table "Question" dans la base de données si elle n'existe pas déjà.
@@ -359,6 +375,6 @@ class ConnexionBD {
         ];
         return $questions;
     }
-    
+}
 
 ?>

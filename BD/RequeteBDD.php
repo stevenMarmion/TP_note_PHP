@@ -3,6 +3,7 @@
 namespace BD;
 
 use PDO;
+use PDOStatement;
 
 use Exception;
 
@@ -42,7 +43,7 @@ class RequeteBDD {
      * Récupère les données de la table spécifiée à partir de la base de données.
      *
      * @param object $db L'objet représentant la connexion à la base de données.
-     * @return array|null Les données récupérées de la table spécifiée, ou null en cas d'erreur.
+     * @return PDOstatement|null Les données récupérées de la table spécifiée, ou null en cas d'erreur.
      */
     function recup_datas($db) {
         try {
@@ -141,7 +142,7 @@ class RequeteBDD {
      * Récupère l'identifiant du dernier quizz enregistré dans la base de données.
      *
      * @param object $db L'objet représentant la connexion à la base de données.
-     * @return mixed L'identifiant du dernier quizz, ou NULL si aucun quizz n'est enregistré.
+     * @return PDOstatement L'identifiant du dernier quizz, ou NULL si aucun quizz n'est enregistré.
      */
     function recup_last_id_quizz($db) {
         return $db->query("SELECT MAX(id_quizz) FROM Quizz");
@@ -173,7 +174,7 @@ class RequeteBDD {
      *
      * @param PDO $db La connexion à la base de données.
      * @param string $nom_quizz Le nom du quizz à insérer.
-     * @return int L'identifiant du dernier quizz inséré.
+     * @return PDOstatement L'identifiant du dernier quizz inséré.
      */
     function inserer_quizz($db, $nom_quizz) {
         $insert_quizz = "INSERT INTO Quizz (name_quizz) VALUES (:name_quizz)";

@@ -1,11 +1,3 @@
-/**
- * Fichier principal de l'application Quizz.
- * Ce fichier contient le code HTML et PHP nécessaire pour afficher les quizz et gérer les réponses.
- * Il inclut les fichiers de classes nécessaires et utilise des requêtes SQL pour récupérer les données des quizz et des questions.
- * Les réponses des utilisateurs sont soumises via un formulaire et traitées dans le fichier "verifie_reponse.php".
- * Il y a également un formulaire pour créer un nouveau quizz dans le fichier "creation_quizz.php".
- */
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +10,14 @@
 <body>
 
 <?php
+
+/**
+ * Fichier principal de l'application Quizz.
+ * Ce fichier contient le code HTML et PHP nécessaire pour afficher les quizz et gérer les réponses.
+ * Il inclut les fichiers de classes nécessaires et utilise des requêtes SQL pour récupérer les données des quizz et des questions.
+ * Les réponses des utilisateurs sont soumises via un formulaire et traitées dans le fichier "verifie_reponse.php".
+ * Il y a également un formulaire pour créer un nouveau quizz dans le fichier "creation_quizz.php".
+ */
 
 // Inclusion des fichiers de classes et de la connexion à la base de données
 require_once __DIR__ . '/BD/ConnexionBD.php';

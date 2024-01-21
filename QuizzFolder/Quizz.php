@@ -10,7 +10,7 @@ use QuizzFolder\Question;
 class Quizz {
     /**
      * Liste des questions du quizz.
-     * @var Question[]
+     * @var []
      */
     public $questions;
 
@@ -22,7 +22,7 @@ class Quizz {
 
     /**
      * Constructeur de la classe Quizz.
-     * @param Question[] $questions Liste des questions du quizz.
+     * @param [] $questions Liste des questions du quizz.
      * @param string $titre Titre du quizz.
      */
     public function __construct($questions, string $titre) {
@@ -32,7 +32,7 @@ class Quizz {
 
     /**
      * Retourne la liste des questions du quizz.
-     * @return Question[] Liste des questions du quizz.
+     * @return [] Liste des questions du quizz.
      */
     public function getQuestions() {
         return $this->questions;
