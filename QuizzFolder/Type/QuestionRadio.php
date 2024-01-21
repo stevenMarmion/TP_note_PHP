@@ -33,12 +33,12 @@ class QuestionRadio extends Question {
      * @param int $index L'index de la question.
      * @return string Le code HTML de la question de type radio.
      */
-    public function question_radio($index) {
+    public function question_radio($index, $id_quizz) {
         $html = "<br>";
         $i = 0;
         foreach (parent::getChoices() as $c) {
             $i += 1;
-            $question_radio = new InputRadio("q{$index}_$i", "q$index", $c['Texte_choix'], "q{$index}_$i", true);
+            $question_radio = new InputRadio("q{$index}_{$i}_$id_quizz", "q{$index}_{$id_quizz}", $c['Texte_choix'], "q{$index}_{$i}_$id_quizz", true);
             $render = $question_radio->render();
             $html .= $render;
         }
@@ -77,8 +77,8 @@ class QuestionRadio extends Question {
      * @param int $index L'index de la question.
      * @return string Le rendu de la question de type radio.
      */
-    public function rendu($index) {
-        return $this->question_radio($index);
+    public function rendu($index, $id_quizz) {
+        return $this->question_radio($index, $id_quizz);
     }
 }
 

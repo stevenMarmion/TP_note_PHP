@@ -118,7 +118,7 @@ abstract class Question {
      * Méthode abstraite pour afficher le rendu de la question.
      * @param int $index L'index de la question.
      */
-    public abstract function rendu($index);
+    public abstract function rendu($index, $id_quizz);
 }
 
 ?>

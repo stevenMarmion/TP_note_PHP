@@ -34,9 +34,9 @@ class QuestionText extends Question {
      * @param int $index L'index de la question
      * @return string Le code HTML de la question
      */
-    public function question_text($index) {
+    public function question_text($index, $id_quizz) {
         $html = "<br>";
-        $question_text = new InputText("q{$index}", "q$index", "", "", true);
+        $question_text = new InputText("q{$index}_$id_quizz", "q{$index}_{$id_quizz}", "", "", true);
         $render = $question_text->render();
         $html .= $render;
         $html .= "<br>";
@@ -71,8 +71,8 @@ class QuestionText extends Question {
      * @param int $index L'index de la question
      * @return string Le rendu de la question
      */
-    public function rendu($index) {
-        return $this->question_text($index);
+    public function rendu($index, $id_quizz) {
+        return $this->question_text($index, $id_quizz);
     }
 }
 
