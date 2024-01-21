@@ -8,11 +8,31 @@ require_once __DIR__ . '/../../Classes/Form/GeneriqueFormElement.php';
 use QuizzFolder\Question;
 use Classes\Form\Type\InputRadio;
 
+/**
+ * Classe QuestionRadio
+ * 
+ * Représente une question de type radio dans un quizz.
+ */
 class QuestionRadio extends Question {
+    /**
+     * Constructeur de la classe QuestionRadio.
+     * 
+     * @param string $name Le nom de la question.
+     * @param string $text Le texte de la question.
+     * @param array $answer Les réponses correctes de la question.
+     * @param array $choices Les choix possibles pour la question.
+     * @param mixed $score Le score attribué à la question.
+     */
     public function __construct(string $name, string $text, array $answer, array $choices , $score) {
         parent::__construct($name, $text, $answer, $choices, $score);
     }
 
+    /**
+     * Génère le code HTML pour afficher la question de type radio.
+     * 
+     * @param int $index L'index de la question.
+     * @return string Le code HTML de la question de type radio.
+     */
     public function question_radio($index) {
         $html = "<br>";
         $i = 0;
@@ -25,6 +45,13 @@ class QuestionRadio extends Question {
         return $html;
     }
     
+    /**
+     * Calcule les points obtenus pour la question en fonction des réponses données.
+     * 
+     * @param Question $q La question.
+     * @param mixed $v Les réponses données.
+     * @return array Un tableau contenant le score correct et le score total.
+     */
     public function calcul_points($q, $v) {
         $score_total = 0;
         $score_correct = 0;
@@ -44,6 +71,12 @@ class QuestionRadio extends Question {
         return [$score_correct, $score_total];
     }
 
+    /**
+     * Renvoie le rendu de la question de type radio.
+     * 
+     * @param int $index L'index de la question.
+     * @return string Le rendu de la question de type radio.
+     */
     public function rendu($index) {
         return $this->question_radio($index);
     }

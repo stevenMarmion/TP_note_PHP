@@ -1,3 +1,8 @@
+/**
+ * Classe ConnexionBD
+ * 
+ * Cette classe représente la connexion à la base de données et contient des méthodes pour initialiser la base de données, créer les tables, insérer des données et effectuer des requêtes.
+ */
 <?php
 
 namespace BD;
@@ -5,26 +10,21 @@ namespace BD;
 use PDO;
 use PDOException;
 
+/**
+ * Classe ConnexionBD
+ * 
+ * Cette classe représente la connexion à la base de données.
+ * Elle initialise la base de données, crée les tables nécessaires,
+ * insère les données de quiz, questions, réponses et choix, si la base de données est vide.
+ */
 class ConnexionBD {
 
-    private static $db = null;
-    public function __construct() {
-        date_default_timezone_set('Europe/Paris');
-        try {
-            if (self::$db === null) {
-                $questions = $this->create_questions();
 
-                self::$db = $this->init_DB();
-                $this->create_tables();
-                $this->make_insert_quizz();
-                $this->make_insert_questions($questions);
-                $this->make_insert_reponse($questions);
-                $this->make_insert_choix($questions);
-            }
-
-        } catch (PDOException $e) {}
-    }
-
+    /**
+     * Obtient la connexion à la base de données.
+     *
+     * @return PDO La connexion à la base de données.
+     */
     public static function obtenir_connexion() {
         if (self::$db === null) {
             try {
@@ -36,6 +36,12 @@ class ConnexionBD {
         return self::$db;
     }
 
+    /**
+     * Initialise la connexion à la base de données.
+     * Si la connexion n'est pas déjà établie, crée une nouvelle instance de PDO et configure les attributs.
+     * 
+     * @return PDO L'objet PDO représentant la connexion à la base de données.
+     */
     function init_DB() {
         if (self::$db == null) {
             $cheminFichierSQLite = __DIR__ . '/../quizz.sqlite3';
@@ -45,12 +51,28 @@ class ConnexionBD {
         return self::$db;
     }
 
+    /**
+     * Crée les tables nécessaires dans la base de données.
+     */
     function create_tables() {
         self::$db->exec("CREATE TABLE IF NOT EXISTS Quizz (
             id_quizz INTEGER PRIMARY KEY AUTOINCREMENT,
             name_quizz TEXT
         )");
+    }
 
+        /**
+         * Crée la table "Question" dans la base de données si elle n'existe pas déjà.
+         * La table contient les colonnes suivantes :
+         * - ID_question : clé primaire de type entier
+         * - Nom_question : texte
+         * - Type_question : texte
+         * - Texte_question : texte
+         * - Points_gagnes : entier
+         * - ID_quizz : clé étrangère faisant référence à la table "Quizz"
+         * 
+         * @return void
+         */
         self::$db->exec("CREATE TABLE IF NOT EXISTS Question (
             ID_question INTEGER PRIMARY KEY,
             Nom_question TEXT,
@@ -61,6 +83,15 @@ class ConnexionBD {
             FOREIGN KEY (ID_quizz) REFERENCES Quizz(ID_quizz)
         )");
 
+        /**
+         * Crée la table Reponse dans la base de données si elle n'existe pas déjà.
+         * La table Reponse contient les colonnes suivantes :
+         * - ID_reponse : identifiant unique de la réponse (clé primaire)
+         * - Texte_reponse : texte de la réponse
+         * - Est_correcte : indique si la réponse est correcte (vrai ou faux)
+         * - ID_question : identifiant de la question à laquelle la réponse est associée (clé étrangère)
+         * La colonne ID_question est une clé étrangère qui référence la table Question.
+         */
         self::$db->exec("CREATE TABLE IF NOT EXISTS Reponse (
             ID_reponse INTEGER PRIMARY KEY AUTOINCREMENT,
             Texte_reponse TEXT,
@@ -69,6 +100,14 @@ class ConnexionBD {
             FOREIGN KEY (ID_question) REFERENCES Question(ID_question)
         )");
 
+        /**
+         * Crée la table "Choix" dans la base de données si elle n'existe pas déjà.
+         * La table contient les colonnes suivantes :
+         * - ID_choix : identifiant unique du choix (clé primaire)
+         * - Texte_choix : texte du choix
+         * - Value_choix : valeur du choix
+         * - ID_question : identifiant de la question associée (clé étrangère référençant la table "Question")
+         */
         self::$db->exec("CREATE TABLE IF NOT EXISTS Choix (
             ID_choix INTEGER PRIMARY KEY AUTOINCREMENT,
             Texte_choix TEXT,
@@ -78,6 +117,11 @@ class ConnexionBD {
         );");
     }
 
+    /**
+     * Fonction pour insérer un quizz dans la base de données.
+     * Vérifie d'abord si le quizz existe déjà avant de l'insérer.
+     * Si le quizz n'existe pas, il est inséré dans la table Quizz avec le nom "Le quizz délirant !".
+     */
     function make_insert_quizz() {
         $checkQuizz = "SELECT COUNT(*) FROM Quizz WHERE name_quizz = 'Le quizz délirant !'";
         $stmtCheck = self::$db->query($checkQuizz);
@@ -90,6 +134,12 @@ class ConnexionBD {
         }
     }
 
+    /**
+     * Insère les questions dans la base de données si elles n'existent pas déjà.
+     *
+     * @param array $questions Les questions à insérer.
+     * @return void
+     */
     function make_insert_questions($questions) {
         $id_question = null;
         $name = null;
@@ -123,6 +173,12 @@ class ConnexionBD {
         }
     }
 
+    /**
+     * Fonction pour insérer les réponses dans la base de données.
+     *
+     * @param array $questions Les questions avec leurs réponses.
+     * @return void
+     */
     function make_insert_reponse($questions) {
         $answer = null;
         $id_question = null;
@@ -162,6 +218,12 @@ class ConnexionBD {
         }
     }
 
+    /**
+     * Insère les choix des questions dans la base de données.
+     *
+     * @param array $questions Les questions avec leurs choix.
+     * @return void
+     */
     function make_insert_choix($questions) {
         $texte_choix = null;
         $value_choix = null;
@@ -193,6 +255,13 @@ class ConnexionBD {
         }
     }
 
+    /**
+     * Fonction pour créer des questions.
+     *
+     * Cette fonction retourne un tableau contenant plusieurs questions avec leurs détails.
+     *
+     * @return array Le tableau de questions.
+     */
     function create_questions() {
         $questions = [
             array(
@@ -290,6 +359,6 @@ class ConnexionBD {
         ];
         return $questions;
     }
-}
+    
 
 ?>

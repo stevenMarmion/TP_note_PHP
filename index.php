@@ -1,3 +1,11 @@
+/**
+ * Fichier principal de l'application Quizz.
+ * Ce fichier contient le code HTML et PHP nécessaire pour afficher les quizz et gérer les réponses.
+ * Il inclut les fichiers de classes nécessaires et utilise des requêtes SQL pour récupérer les données des quizz et des questions.
+ * Les réponses des utilisateurs sont soumises via un formulaire et traitées dans le fichier "verifie_reponse.php".
+ * Il y a également un formulaire pour créer un nouveau quizz dans le fichier "creation_quizz.php".
+ */
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +19,7 @@
 
 <?php
 
+// Inclusion des fichiers de classes et de la connexion à la base de données
 require_once __DIR__ . '/BD/ConnexionBD.php';
 require_once __DIR__ . '/QuizzFolder/Question.php';
 require_once __DIR__ . '/QuizzFolder/Type/QuestionText.php';
@@ -24,16 +33,27 @@ use QuizzFolder\Type\QuestionCheckbox;
 use BD\RequeteBDD;
 use BD\ConnexionBD;
 
+// Création de l'objet de connexion à la base de données
 $db = new ConnexionBD();
 
+// Récupération des données des quizz depuis la base de données
 $requete = new RequeteBDD("Quizz");
 $res_quizz = $requete->recup_datas($db::obtenir_connexion());
 $liste_quizz = $res_quizz->fetchAll(PDO::FETCH_ASSOC);
 
+// Récupération des données des questions depuis la base de données
 $requete->set_table("Question");
 $res_question = $requete->recup_datas($db::obtenir_connexion());
 $liste_questions = $res_question->fetchAll(PDO::FETCH_ASSOC);
 
+/**
+ * Fonction pour construire les objets Question à afficher pour un quizz donné.
+ * @param array $liste_questions Liste des questions à afficher.
+ * @param RequeteBDD $requete Objet RequeteBDD pour effectuer les requêtes SQL.
+ * @param ConnexionBD $db Objet ConnexionBD pour la connexion à la base de données.
+ * @param int $id_quizz ID du quizz pour lequel construire les questions.
+ * @return array Liste des objets Question à afficher.
+ */
 function construit_responses($liste_questions, $requete, $db, $id_quizz) {
     $liste_questions_a_afficher = [];
     $res_question = $requete->recup_questions_by_id_quizz($db::obtenir_connexion(), $id_quizz);
@@ -79,6 +99,7 @@ function construit_responses($liste_questions, $requete, $db, $id_quizz) {
     return $liste_questions_a_afficher;
 }
 
+// Affichage des quizz et des questions
 foreach ($liste_quizz as $index_quizz => $quizz) {
     $liste_questions_a_afficher = construit_responses($liste_questions, $requete, $db, $index_quizz+1);
     ?>
@@ -98,8 +119,8 @@ foreach ($liste_quizz as $index_quizz => $quizz) {
     <?php
 }
 
+// Formulaire de création de quizz
 ?>
-
 <form method="post" action="creation_quizz.php">
     <input type="hidden" name="redirection" value="false">
     <h3>Créer votre propre quizz dès maintenant</h3>
@@ -108,3 +129,4 @@ foreach ($liste_quizz as $index_quizz => $quizz) {
 
 </body>
 </html>
+
